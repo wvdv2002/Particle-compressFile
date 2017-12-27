@@ -1,61 +1,31 @@
-# compressFile
+# Particle-compressFile
 
-A Particle library for compressFile
+A Particle library to compress files on an SDCard using the [Heatshrink](https://github.com/atomicobject/heatshrink) compression technique.
+This compression is fast and uses a low amount of RAM.
 
-## Welcome to your library!
 
-To get started, modify the sources in [src](src). Rename the example folder inside [examples](examples) to a more meaningful name and add additional examples in separate folders.
+## Getting started
 
-To compile your example you can use `particle compile examples/usage` command in [Particle CLI](https://docs.particle.io/guide/tools-and-features/cli#update-your-device-remotely) or use our [Desktop IDE](https://docs.particle.io/guide/tools-and-features/dev/#compiling-code).
-
-Libraries can also depend on other libraries. To add a dependency use [`particle library add`](https://docs.particle.io/guide/tools-and-features/cli#adding-a-library) or [library management](https://docs.particle.io/guide/tools-and-features/dev/#managing-libraries) in Desktop IDE.
-
-After the library is done you can upload it with `particle library upload` or `Upload` command in the IDE. This will create a private (only visible by you) library that you can use in other projects. If you wish to make your library public, use `particle library publish` or `Publish` command.
-
-_TODO: update this README_
-
-## Usage
-
-Connect XYZ hardware, add the compressFile library to your project and follow this simple example:
-
-```
-#include "compressFile.h"
-CompressFile compressFile;
-
-void setup() {
-  compressFile.begin();
-}
-
-void loop() {
-  compressFile.process();
-}
-```
+Connect an SDcard to your Particle device. Setup the right pins and SD card configuration in the example and run it by compiling and flashing the files to a particle device.
+Connect to the particle using a terminal/serial monitor and let it do its magic.
 
 See the [examples](examples) folder for more details.
 
 ## Documentation
 
-TODO: Describe `CompressFile`
+After compressing a file, it can be decompressed on a linux or windows machine using the [Heatshrink](https://github.com/atomicobject/heatshrink) program. Use the Linux version already build in the [bin](bin) folder or clone the Heatshrink repository and run make to create a binary that can be run. On a linux computer, after the binary is created, you can use "heatshrink -d -w 10 -l 4 $compressedname $name" to decompress your file. I recommend placing the heatshrink file in /usr/local/bin so you can use it everywhere on the command line. 
+
+On the [Heatshrink blog](https://spin.atomicobject.com/2013/03/14/heatshrink-embedded-data-compression/) a good description and overview of the different settings in the heatshrink_config.h are given. The HS 1,4 compression that is the standard setting gives a compression of about 50%.
+
+
+This library is used by the FTP file send library I also created to send the compressed file over FTP to an ftp server. This library will be uploaded as soon as this one is done.
+
 
 ## Contributing
-
-Here's how you can make changes to this library and eventually contribute those changes back.
-
-To get started, [clone the library from GitHub to your local machine](https://help.github.com/articles/cloning-a-repository/).
-
-Change the name of the library in `library.properties` to something different. You can add your name at then end.
-
-Modify the sources in <src> and <examples> with the new behavior.
-
-To compile an example, use `particle compile examples/usage` command in [Particle CLI](https://docs.particle.io/guide/tools-and-features/cli#update-your-device-remotely) or use our [Desktop IDE](https://docs.particle.io/guide/tools-and-features/dev/#compiling-code).
-
-After your changes are done you can upload them with `particle library upload` or `Upload` command in the IDE. This will create a private (only visible by you) library that you can use in other projects. Do `particle library add compressFile_myname` to add the library to a project on your machine or add the compressFile_myname library to a project on the Web IDE or Desktop IDE.
-
-At this point, you can create a [GitHub pull request](https://help.github.com/articles/about-pull-requests/) with your changes to the original library. 
-
-If you wish to make your library public, use `particle library publish` or `Publish` command.
+There is no option to uncompress files for now on the particle device. It might be nice to add this functionality as well.
+Furthermore, all space allocation is static for now, about 2k of RAM space is used. This can probably be improved by dynamic allocation.
 
 ## LICENSE
 Copyright 2017 wvdv2002
 
-Licensed under the <insert your choice of license here> license
+Licensed under the ISC license

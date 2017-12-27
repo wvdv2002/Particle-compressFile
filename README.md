@@ -13,6 +13,8 @@ See the [examples](examples) folder for more details.
 
 ## Documentation
 
+After sending the file.startCompress command, call file.task until the compressFile.getState()==COMPRESS_DONE, this indicates that the file is compressed. The task will request chunks of 512 bytes from the SD card and compress those. So the function is kinda non-blocking and can be used in cooperative multitasking environments.
+
 After compressing a file, it can be decompressed on a linux or windows machine using the [Heatshrink](https://github.com/atomicobject/heatshrink) program. Use the Linux version already build in the [bin](bin) folder or clone the Heatshrink repository and run make to create a binary that can be run. On a linux computer, after the binary is created, you can use "heatshrink -d -w 10 -l 4 $compressedname $name" to decompress your file. I recommend placing the heatshrink file in /usr/local/bin so you can use it everywhere on the command line. 
 
 On the [Heatshrink blog](https://spin.atomicobject.com/2013/03/14/heatshrink-embedded-data-compression/) a good description and overview of the different settings in the heatshrink_config.h are given. The HS 1,4 compression that is the standard setting gives a compression of about 50%.
